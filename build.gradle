@@ -1,0 +1,115 @@
+buildscript {
+
+    apply plugin: "eclipse"
+    apply plugin: "java"
+
+
+    if (project.hasProperty("topobyte")) {
+        apply from: 'file:///' + System.getProperty("user.home") \
+        + '/.gradle/topobyte.gradle'
+    }
+
+    repositories {
+        mavenLocal()
+        maven { url 'https://mvn.topobyte.de'}
+        maven { url 'https://mvn.slimjars.com'}
+        mavenCentral()
+        gradlePluginPortal()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        google()
+    }
+    dependencies {
+        classpath('de.topobyte:osm4j-core:0.1.0')
+        classpath('de.topobyte:osm4j-utils:0.1.2')
+        classpath('de.topobyte:osm4j-xml:1.2.0')
+        classpath('de.topobyte:osm4j-pbf:0.1.1')
+        classpath('de.topobyte:osm4j-tbo:0.1.0')
+        classpath('de.topobyte:osm4j-geometry:0.1.0')
+        classpath('de.topobyte:adt-geo:0.0.4')
+        classpath('de.topobyte:jts2awt:0.0.1')
+        classpath('de.topobyte:mercator-image:0.0.2')
+    }
+}
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(8))
+}
+allprojects {
+    apply plugin: "eclipse"
+    apply plugin: "java"
+
+
+    version = '1.0'
+    ext {
+        appName = "My GDX Game"
+        gdxVersion = '1.11.0'
+        roboVMVersion = '2.3.16'
+        box2DLightsVersion = '1.5'
+        ashleyVersion = '1.7.4'
+        aiVersion = '1.8.2'
+        gdxControllersVersion = '2.2.1'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        google()
+        gradlePluginPortal()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url "https://jitpack.io" }
+        maven { url 'https://mvn.topobyte.de'}
+        maven { url 'https://mvn.slimjars.com'}
+    }
+}
+
+project(":desktop") {
+    apply plugin: "java-library"
+
+
+    dependencies {
+        implementation project(":core")
+        api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        compileClasspath('de.topobyte:osm4j-core:0.1.0')
+        compileClasspath('de.topobyte:osm4j-utils:0.1.2')
+        compileClasspath('de.topobyte:osm4j-xml:1.2.0')
+        compileClasspath('de.topobyte:osm4j-pbf:0.1.1')
+        compileClasspath('de.topobyte:osm4j-tbo:0.1.0')
+        compileClasspath('de.topobyte:osm4j-geometry:0.1.0')
+        compileClasspath('de.topobyte:adt-geo:0.0.4')
+        compileClasspath('de.topobyte:jts2awt:0.0.1')
+        compileClasspath('de.topobyte:mercator-image:0.0.2')
+        runtimeClasspath('de.topobyte:osm4j-core:0.1.0')
+        runtimeClasspath('de.topobyte:osm4j-xml:1.2.0')
+        runtimeClasspath('de.topobyte:adt-geo:0.0.4')
+        runtimeClasspath('de.topobyte:jts2awt:0.0.1')
+        runtimeClasspath('de.topobyte:mercator-image:0.0.2')
+        runtimeClasspath('de.topobyte:osm4j-geometry:0.1.0')
+        
+    }
+}
+
+project(":core") {
+    apply plugin: "java-library"
+
+    dependencies {
+        api "com.badlogicgames.gdx:gdx:$gdxVersion"
+        compileClasspath('de.topobyte:osm4j-core:0.1.0')
+        compileClasspath('de.topobyte:osm4j-utils:0.1.2')
+        compileClasspath('de.topobyte:osm4j-xml:1.2.0')
+        compileClasspath('de.topobyte:osm4j-pbf:0.1.1')
+        compileClasspath('de.topobyte:osm4j-tbo:0.1.0')
+        compileClasspath('de.topobyte:osm4j-geometry:0.1.0')
+        compileClasspath('de.topobyte:adt-geo:0.0.4')
+        compileClasspath('de.topobyte:jts2awt:0.0.1')
+        compileClasspath('de.topobyte:mercator-image:0.0.2')
+        runtimeClasspath('de.topobyte:adt-geo:0.0.4')
+        runtimeClasspath('de.topobyte:jts2awt:0.0.1')
+        runtimeClasspath('de.topobyte:mercator-image:0.0.2')
+        runtimeClasspath('de.topobyte:osm4j-xml:1.2.0')
+        runtimeClasspath('de.topobyte:osm4j-core:0.1.0')
+
+    }
+}
+
+
